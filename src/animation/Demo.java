@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  * 
  * @author Stepan214
  */
-public class Main {
+public class Demo {
 
 	
 	public static void main(String[] args) {
