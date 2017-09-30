@@ -28,26 +28,26 @@ public class Demo {
 		
 		//summons a JLabel
 		JLabel label = new JLabel("hello");
-		label.setLocation(100, 50);
+		label.setLocation(10, 50);
 		label.setSize(100, 20);
 		frame.add(label);
 		label.setVisible(true);
 		
 		
 		//declares single dimension animation (in X or Y)
-		StraightAnimation sAnimation = new StraightAnimation(label, 8, new Point(10, 50), true);
+		StraightAnimation sAnimation = new StraightAnimation(label, 8, new Point(300, 50), true);
 		
 		//starts the single dimension animation
 		sAnimation.start();
 		
 		
 		
-		//ObliqueAnimation and StraightAnimation CANNOT RUN TOGETHER AT ONCE
+		//CrossAnimation and StraightAnimation CANNOT RUN TOGETHER AT ONCE
 		
 		
 		
-		//does multi (cross) dimension animation (X and Y at once)  --BETA--
-		CrossAnimation cAnimation = new CrossAnimation(label, 5, new Point(600, 300));
+		//does multi (cross) dimension animation (X and Y at once) 
+		CrossAnimation cAnimation = new CrossAnimation(label, 5, new Point(700, 10));
 		
 		//starts the multi dimension animation
 	//	cAnimation.start();
