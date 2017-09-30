@@ -3,8 +3,8 @@ Tools for animating JComponents.
 
 Uses Java Swing Timer to animate JComponent from A to B. 
 
-Straight Animation: animates in one dimension (x or y), can feature smooth ending.
+StraightAnimation.java: Animates in one dimension (x or y), can feature smooth ending.
 
-Cross Animation [BETA]: animates in x and y at once. Still in beta, does not feature smooth ending. 
+CrossAnimation.java: Animates in x and y at once. Does not feature smooth ending. 
 
 by Stepan214
