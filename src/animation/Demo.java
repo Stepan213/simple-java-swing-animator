@@ -35,7 +35,7 @@ public class Demo {
 		
 		
 		//declares single dimension animation (in X or Y)
-		StraightAnimation sAnimation = new StraightAnimation(label, 8, new Point(300, 50), true);
+		StraightAnimation sAnimation = new StraightAnimation(label, 8, new Point(10, 500), true);
 		
 		//starts the single dimension animation
 		sAnimation.start();

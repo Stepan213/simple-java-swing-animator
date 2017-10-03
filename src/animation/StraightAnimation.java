@@ -23,6 +23,18 @@ public class StraightAnimation {
 	private int ddelay;
 	
 	
+	private int counter;
+	
+	
+	private int startingLoc;
+	
+	
+	private int currentLocS;
+	
+	
+	private int finalLocS;
+	
+	
 	private Timer timer;
 	
 	
@@ -56,9 +68,15 @@ public class StraightAnimation {
 		final boolean xIsSame;
 		if(currentLocation.x == fLocation.x) {
 			xIsSame = true;
+			currentLocS = currentLocation.y;
+			finalLocS = finalLocation.y;
+			startingLoc = comp.getLocation().y;
 		}
 		else {
 			xIsSame = false;
+			currentLocS = currentLocation.x;
+			finalLocS = finalLocation.x;
+			startingLoc = comp.getLocation().x;
 		}
 		
 		
@@ -70,43 +88,44 @@ public class StraightAnimation {
 				
 				if(currentLocation.x < finalLocation.x || currentLocation.y < finalLocation.y) {
 					if(xIsSame) {
-						comp.setLocation(currentLocation.x, currentLocation.y++);
+						comp.setLocation(currentLocation.x, currentLocS++);
 					}
 					else {
-						comp.setLocation(currentLocation.x++, currentLocation.y);
+						comp.setLocation(currentLocS++, currentLocation.y);
 					}
 				}
 				else {
 					if(xIsSame) {
-						comp.setLocation(currentLocation.x, currentLocation.y--);
+						comp.setLocation(currentLocation.x, currentLocS--);
 					}
 					else {
-						comp.setLocation(currentLocation.x--, currentLocation.y);
+						comp.setLocation(currentLocS--, currentLocation.y);
 					}
 				}
 				
 				
 				//checks if we're in the final location
-				if(currentLocation.x == fLocation.x && currentLocation.y == fLocation.y) {
+				if(currentLocS == finalLocS) {
 					timer.stop();
 				}
 				
 				
 				//makes smooth ending
-				if(smooth) {
-					if(Math.abs(fLocation.x - currentLocation.x) < 14) {
-						timer.setDelay(ddelay);
-						ddelay++;
-					}
-					if(Math.abs(fLocation.x - currentLocation.x) < 10) {
-						timer.setDelay(ddelay);
-						ddelay += 2;
-					}
-					if(Math.abs(fLocation.x - currentLocation.x) < 3) {
-						timer.setDelay(ddelay);
-						ddelay += 3;;
-					}
+				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 80) {
+					ddelay++;
 				}
+				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 90) {
+					ddelay += 2;
+				}
+				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 95) {
+					ddelay += 4;
+				}
+				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 98) {
+					ddelay += 6;
+				}
+				
+				
+				timer.setDelay(ddelay);
 			}
 		});
 	}	
