@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
@@ -20,63 +19,59 @@ import javax.swing.Timer;
 public class StraightAnimation {
 
 	
-	private int ddelay;
+	//delay between steps
+	private int delay;
 	
 	
-	private int counter;
-	
-	
-	private int startingLoc;
-	
-	
+	//current x or y location of the JComponent (changes as the animation moves)
 	private int currentLocS;
 	
 	
+	//x or y location where the JComponent will be
 	private int finalLocS;
 	
 	
 	private Timer timer;
 	
 	
-	private Point fLocation;
+	//location where the JComponent will be
+	private Point finalLoc;
 	
 	
 	/**
-	 * 
 	 * @param comp JComponent you want to animate.
 	 * @param delay Delay in miliseconds between each step. Usually 5-100.
 	 * @param finalLocation Final location of the JComponent. One of the parameters
-	 * (x or y) HAS to be the same.
+	 * (x or y) HAS to be the same, but the other one HAS to be DIFFERENT than the current
+	 * location.
 	 * @param smooth If the end is going to be smooth.
 	 */
-	public StraightAnimation(JComponent comp, int delay, Point finalLocation, boolean smooth) {
+	public StraightAnimation(JComponent comp, int delayBetweenSteps, Point finalLocation, boolean smooth) {
 	
 		
 		//where the JComponent is going to be after the animation
-		fLocation = finalLocation;
+		finalLoc = finalLocation;
 		
 		
 		//has to switch because of the anonymous inner class
-		ddelay = delay;
+		delay = delayBetweenSteps;
 		
 		
 		//current location 
-		Point currentLocation = comp.getLocation();
+		Point currentLoc = comp.getLocation();
 		
 		
 		//determines if the object is going to move in x or in y
 		final boolean xIsSame;
-		if(currentLocation.x == fLocation.x) {
+		if(currentLoc.x == finalLoc.x) {
 			xIsSame = true;
-			currentLocS = currentLocation.y;
-			finalLocS = finalLocation.y;
-			startingLoc = comp.getLocation().y;
+			currentLocS = currentLoc.y;
+			finalLocS = finalLoc.y;
 		}
 		else {
 			xIsSame = false;
-			currentLocS = currentLocation.x;
-			finalLocS = finalLocation.x;
-			startingLoc = comp.getLocation().x;
+			currentLocS = currentLoc.x;
+			finalLocS = finalLoc.x;
 		}
 		
 		
@@ -86,20 +81,20 @@ public class StraightAnimation {
 			public void actionPerformed(ActionEvent e) {
 			
 				
-				if(currentLocation.x < finalLocation.x || currentLocation.y < finalLocation.y) {
+				if(currentLoc.x < finalLoc.x || currentLoc.y < finalLoc.y) {
 					if(xIsSame) {
-						comp.setLocation(currentLocation.x, currentLocS++);
+						comp.setLocation(currentLoc.x, currentLocS++);
 					}
 					else {
-						comp.setLocation(currentLocS++, currentLocation.y);
+						comp.setLocation(currentLocS++, currentLoc.y);
 					}
 				}
 				else {
 					if(xIsSame) {
-						comp.setLocation(currentLocation.x, currentLocS--);
+						comp.setLocation(currentLoc.x, currentLocS--);
 					}
 					else {
-						comp.setLocation(currentLocS--, currentLocation.y);
+						comp.setLocation(currentLocS--, currentLoc.y);
 					}
 				}
 				
@@ -112,20 +107,20 @@ public class StraightAnimation {
 				
 				//makes smooth ending
 				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 80) {
-					ddelay++;
+					delay++;
 				}
 				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 90) {
-					ddelay += 2;
+					delay += 2;
 				}
 				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 95) {
-					ddelay += 4;
+					delay += 4;
 				}
 				if(smooth && Math.abs((currentLocS * 100.0f) / finalLocS) == 98) {
-					ddelay += 6;
+					delay += 6;
 				}
 				
 				
-				timer.setDelay(ddelay);
+				timer.setDelay(delay);
 			}
 		});
 	}	
@@ -133,13 +128,6 @@ public class StraightAnimation {
 	
 	//starts the animation
 	public void start() {
-		timer.start();
-	}
-	
-	
-	//starts the animation with new final location
-	public void start(Point newLocation) {
-		fLocation = newLocation;
 		timer.start();
 	}
 }
